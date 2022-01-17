@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { readContentFile } = require('./editApi');
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,6 +13,11 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
+app.get('/talker', async (_req, res) => {
+  const talkers = await readContentFile('./talker.json');
+  res.status(200).json(talkers);
+});
+
 app.listen(PORT, () => {
-  console.log('Online');
+  console.log(`Listening at the port ${PORT}`);
 });
