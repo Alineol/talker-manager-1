@@ -1,12 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { readContentFile, writeContentFile } = require('./editApi');
-const { isEmailValid,
-  isPasswordValid,
-  isTokenValid,
-  isNameValid,
-  isAgeValid,
-  isTalkValid } = require('./validations/validations');
+const { isEmailValid, isPasswordValid } = require('./validations/login-validation');
+const { isTokenValid, isNameValid,
+  isAgeValid, isTalkValid } = require('./validations/createTalker-validation');
 
 const app = express();
 app.use(bodyParser.json());
