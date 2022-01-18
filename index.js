@@ -2,9 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const { readContentFile, writeContentFile } = require('./editApi');
-const { isEmailValid, isPasswordValid } = require('./validations/login-validation');
-const { isTokenValid, isNameValid,
-  isAgeValid, isTalkValid } = require('./validations/createTalker-validation');
+const { 
+  isEmailValid,
+  isPasswordValid, 
+  isTokenValid, 
+  isNameValid,
+  isAgeValid, 
+  isTalkValid, 
+} = require('./validations/validations');
 
 const TALKERS_JSON = './talker.json';
 
