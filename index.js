@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { readContentFile } = require('./editApi');
+const { isEmailValid, isPasswordValid } = require('./validations/validations');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,6 +29,10 @@ app.get('/talker/:id', async (req, res) => {
     }
 
   res.status(200).json(talker);
+});
+
+app.post('/login', isEmailValid, isPasswordValid, (req, res) => {
+  res.status(200).json({ token: '7mqaVRXJSp886CGr' });
 });
 
 app.listen(PORT, () => {
