@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const { readContentFile, writeContentFile } = require('./editApi');
 const { isEmailValid, isPasswordValid } = require('./validations/login-validation');
 const { isTokenValid, isNameValid,
@@ -66,6 +67,15 @@ app.put('/talker/:id', isTokenValid, isNameValid, isAgeValid,
     res.status(200).json(newTalkers);
   });
 
+  app.delete('/talker/:id', isTokenValid, async (req, res) => {
+      const { id } = req.params;
+      const talkers = await readContentFile(TALKERS_JSON);
+      const talkerIndex = talkers.findIndex((t) => t.id === parseInt(id, 10));
+      talkers.splice(talkerIndex, 1);
+      fs.writeFileSync('./talker.json', JSON.stringify(talkers));
+
+      res.status(204).end();
+    });
 app.listen(PORT, () => {
   console.log(`Listening at the port ${PORT}`);
 });
