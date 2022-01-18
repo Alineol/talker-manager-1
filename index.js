@@ -24,6 +24,22 @@ app.get('/talker', async (_req, res) => {
   res.status(200).json(talkers);
 });
 
+app.get('/talker/search', isTokenValid, async (req, res) => {
+  const { q } = req.query;
+  const talkers = await readContentFile(TALKERS_JSON);
+  const filtered = talkers.filter((t) => t.name.includes(q));
+
+  if (!q) {
+    return res.status(200).json(talkers);
+  }
+
+  if (!filtered) {
+    return res.status(HTTP_OK_STATUS).json([]);
+  }
+
+  res.status(200).json(filtered);
+});
+
 app.get('/talker/:id', async (req, res) => {
     const talkers = await readContentFile(TALKERS_JSON);
     const { id } = req.params;
@@ -68,14 +84,15 @@ app.put('/talker/:id', isTokenValid, isNameValid, isAgeValid,
   });
 
   app.delete('/talker/:id', isTokenValid, async (req, res) => {
-      const { id } = req.params;
-      const talkers = await readContentFile(TALKERS_JSON);
-      const talkerIndex = talkers.findIndex((t) => t.id === parseInt(id, 10));
-      talkers.splice(talkerIndex, 1);
-      fs.writeFileSync('./talker.json', JSON.stringify(talkers));
+    const { id } = req.params;
+    const talkers = await readContentFile(TALKERS_JSON);
+    const talkerIndex = talkers.findIndex((t) => t.id === parseInt(id, 10));
+    talkers.splice(talkerIndex, 1);
+    fs.writeFileSync('./talker.json', JSON.stringify(talkers));
 
-      res.status(204).end();
-    });
+    res.status(204).end();
+  });
+
 app.listen(PORT, () => {
   console.log(`Listening at the port ${PORT}`);
 });
