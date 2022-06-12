@@ -29,6 +29,12 @@ O Talker Manager é uma API de um CRUD (**C**reate, **R**ead, **U**pdate e **D**
 
 * Express
 
+## Comandos para rodar o projeto na sua máquina
+
+Para instalar as dependências na sua máquina: `npm install`
+
+Para iniciar a aplicação: `npm run dev`
+
 ## Entre em contato
 
 [![Linkedin Badge](https://img.shields.io/badge/-cezarmontenegro-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/cezarmontenegro/)](https://www.linkedin.com/in/cezarmontenegro/) 
